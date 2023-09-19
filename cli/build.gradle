@@ -1,0 +1,12 @@
+plugins {
+    id 'org.itmo.prog.movies.java-application-conventions'
+}
+
+dependencies {
+    implementation project(':core')
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'org.itmo.prog.movies.cli.App'
+}

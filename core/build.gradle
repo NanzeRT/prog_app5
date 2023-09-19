@@ -1,0 +1,3 @@
+plugins {
+    id 'org.itmo.prog.movies.java-library-conventions'
+}
