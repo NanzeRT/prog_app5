@@ -46,7 +46,7 @@ public class NonInteractivePersonReader implements PersonReader {
         NonInteractiveUtils utils = new NonInteractiveUtils(reader);
         creator.setName(utils.readNonNull(s -> s));
         creator.setNationality(utils.readNonNull(Country::valueOf));
-        return creator.create();
+        return collectionView.add(creator.create());
     }
 }
 

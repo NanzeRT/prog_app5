@@ -1,9 +1,11 @@
 package org.itmo.prog.movies.core.data;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public final class Person {
+public final class Person implements Serializable {
     private String name;
     private @Nullable String passportID;
     private Country nationality;
@@ -39,7 +41,7 @@ public final class Person {
          *     быть null
          */ 
         public void setPassportID(@Nullable String passportID) {
-            if (passportID.length() < 10) {
+            if (passportID != null && passportID.length() < 10) {
                 throw new IllegalArgumentException("Длина строки должна быть не меньше 10.");
             }
             this.passportID = passportID;
@@ -80,5 +82,26 @@ public final class Person {
      */
     public @Nonnull Country getNationality() {
         return nationality;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{"
+                + "name="
+                + name
+                + ", passportID="
+                + passportID
+                + ", nationality="
+                + nationality
+                + '}';
+    }
+
+    // comparison
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof Person)) return false;
+        Person other = (Person) obj;
+        return passportID.equals(other.passportID) && name.equals(other.name) && nationality.equals(other.nationality);
     }
 }

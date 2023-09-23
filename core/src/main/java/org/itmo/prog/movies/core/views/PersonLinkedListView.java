@@ -2,20 +2,27 @@ package org.itmo.prog.movies.core.views;
 
 import org.itmo.prog.movies.core.data.Person;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-public final class PersonListView implements PersonCollectionView {
+public final class PersonLinkedListView implements PersonCollectionView {
     private final List<Person> persons;
 
-    public PersonListView(List<Person> persons) {
-        this.persons = persons;
+    public PersonLinkedListView(Collection<Person> persons) {
+        this.persons = new LinkedList<>(persons);
+    }
+
+    public PersonLinkedListView() {
+        this(List.of());
     }
 
     @Override
     public @Nullable Person get(String id) {
+        if (id == null) return null;
         return persons.stream()
                 .filter(person -> person.getPassportID().equals(id))
                 .findFirst()
@@ -30,10 +37,12 @@ public final class PersonListView implements PersonCollectionView {
 
     @Override
     public @Nullable Person add(Person person) {
+        if (person.getPassportID() == null) return person;
         if (contains(person.getPassportID())) {
             return null;
         }
-        return add(Person.Creator.from(person));
+        persons.add(person);
+        return person;
     }
 
     @Override
@@ -43,11 +52,13 @@ public final class PersonListView implements PersonCollectionView {
 
     @Override
     public void remove(String id) {
+        if (id == null) return;
         persons.removeIf(person -> person.getPassportID().equals(id));
     }
 
     @Override
     public @Nullable Person update(Person person) {
+        if (person.getPassportID() == null) return null;
         for (int i = 0; i < persons.size(); i++) {
             if (persons.get(i).getPassportID().equals(person.getPassportID())) {
                 persons.set(i, person);
@@ -70,5 +81,10 @@ public final class PersonListView implements PersonCollectionView {
     @Override
     public boolean contains(String id) {
         return persons.stream().anyMatch(person -> person.getPassportID().equals(id));
+    }
+
+    @Override
+    public int size() {
+        return persons.size();
     }
 }

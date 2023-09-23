@@ -2,18 +2,25 @@ package org.itmo.prog.movies.core.views;
 
 import org.itmo.prog.movies.core.data.Movie;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.Nullable;
 
-public final class MovieListView implements MovieCollectionView {
+public final class MovieLinkedListView implements MovieCollectionView {
     private final List<Movie> movies;
     private int maxId = 0;
 
-    public MovieListView(List<Movie> movies) {
-        this.movies = movies;
+    public MovieLinkedListView(Collection<Movie> movies) {
+        this.movies = new LinkedList<>(movies);
         for (Movie movie : movies) maxId = Math.max(maxId, movie.getId());
+    }
+
+    public MovieLinkedListView() {
+        this(List.of());
     }
 
     @Override
@@ -34,6 +41,7 @@ public final class MovieListView implements MovieCollectionView {
     @Override
     public Movie add(Movie.Creator creator) {
         creator.setId(++maxId);
+        creator.setCreationDate(LocalDateTime.now());
         Movie movie = creator.create();
         if (!movies.add(movie)) return null;
         return movie;
@@ -47,7 +55,7 @@ public final class MovieListView implements MovieCollectionView {
     @Override
     public Movie update(Movie movie) {
         for (int i = 0; i < movies.size(); i++) {
-            if (movies.get(i).getId() == movie.getId()) {
+            if (movies.get(i).getId().intValue() == movie.getId().intValue()) {
                 movies.set(i, movie);
                 return movie;
             }
@@ -63,5 +71,16 @@ public final class MovieListView implements MovieCollectionView {
     @Override
     public void clear() {
         movies.clear();
+    }
+
+    @Override
+    public int size() {
+        return movies.size();
+    }
+
+    @Override
+    public LocalDateTime getInitializationDate() {
+        // Uses the date of the first movie added to the collection 
+        return movies.isEmpty() ? LocalDateTime.now() : movies.get(0).getCreationDate();
     }
 }

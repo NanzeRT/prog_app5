@@ -27,7 +27,7 @@ public class NonInteractiveMovieReader implements MovieReader {
         creator.setOscarsCount(utils.readNonNull(Integer::parseInt));
         creator.setGenre(utils.readNonNull(MovieGenre::valueOf));
         creator.setMpaaRating(utils.readNullable(MpaaRating::valueOf));
-        creator.setOperator(personReader.create());
+        creator.setOperator(personReader.getOrInsert());
         return creator;
     }
 

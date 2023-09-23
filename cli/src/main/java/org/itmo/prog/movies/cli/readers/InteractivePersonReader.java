@@ -3,6 +3,7 @@ package org.itmo.prog.movies.cli.readers;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.itmo.prog.movies.core.data.Country;
 import org.itmo.prog.movies.core.data.Person;
@@ -54,7 +55,7 @@ public class InteractivePersonReader implements PersonReader {
     private Person createKnownId(Person.Creator creator) throws IOException {
         InteractiveUtils utils = new InteractiveUtils(reader, writer);
         utils.setNonNull("Enter person name (String): ", s -> s, creator::setName);
-        utils.setNonNull("Possible countries: " + Country.values() + "\nEnter country (Country): ", Country::valueOf, creator::setNationality);
-        return creator.create();
+        utils.setNonNull("Possible countries: " + Arrays.asList(Country.values()) + "\nEnter country (Country): ", Country::valueOf, creator::setNationality);
+        return collectionView.add(creator.create());
     }
 }

@@ -1,7 +1,7 @@
 package org.itmo.prog.movies.commands;
 
+import org.itmo.prog.movies.cli.readers.MovieReader;
 import org.itmo.prog.movies.commands.exceptions.ArgsCountException;
-import org.itmo.prog.movies.core.readers.MovieReader;
 import org.itmo.prog.movies.core.views.MovieCollectionView;
 
 public final class AddCommand implements Command {
@@ -15,10 +15,10 @@ public final class AddCommand implements Command {
     }
 
     @Override
-    public void apply(String[] args) throws ArgsCountException {
+    public void apply(String[] args) throws ArgsCountException, Exception {
         if (args.length != 0)
             throw new ArgsCountException(0, args.length);
-        movies.add(reader.create());
+        movies.add(reader.read());
     }
 
     @Override

@@ -1,3 +1,7 @@
 plugins {
     id 'org.itmo.prog.movies.java-library-conventions'
 }
+
+dependencies {
+    implementation 'com.fatboyindustrial.gson-javatime-serialisers:gson-javatime-serialisers:1.1.2'
+}

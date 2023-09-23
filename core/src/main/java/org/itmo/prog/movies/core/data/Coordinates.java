@@ -1,8 +1,10 @@
 package org.itmo.prog.movies.core.data;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 
-public final class Coordinates {
+public final class Coordinates implements Serializable {
     private double x;
     private Float y;
 
@@ -44,6 +46,8 @@ public final class Coordinates {
      * @param y не может быть null
      */
     private Coordinates(double x, @Nonnull Float y) {
+        this.x = x;
+        this.y = y;
     }
     /**
      * @return должно быть больше -746
@@ -56,5 +60,13 @@ public final class Coordinates {
      */
     public @Nonnull Float getY() {
         return y;
+    }
+
+    @Override
+    public String toString() {
+        return "Coordinates{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }

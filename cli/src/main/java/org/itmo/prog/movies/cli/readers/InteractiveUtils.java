@@ -18,16 +18,16 @@ class InteractiveUtils {
     }
 
     public @Nullable <T> T readNullable(String prompt, Function<String, T> parser) throws IOException {
-        if (writer != null) {
-            writer.write(prompt);
-            writer.flush();
-        }
         while (true) {
+            if (writer != null) {
+                writer.write(prompt);
+                writer.flush();
+            }
             String line = reader.readLine();
             if (line == null) {
                 throw new IOException("Unexpected end of input");
             }
-            if (line == "") {
+            if (line.isEmpty()) {
                 return null;
             }
             try {

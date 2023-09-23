@@ -1,11 +1,12 @@
 package org.itmo.prog.movies.core.data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public final class Movie {
+public final class Movie implements Comparable<Movie>, Serializable {
     private final Integer id;
     private final String name;
     private final Coordinates coordinates;
@@ -189,5 +190,33 @@ public final class Movie {
      */
     public @Nonnull Person getOperator() {
         return operator;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{"
+                + "id="
+                + id
+                + ", name='"
+                + name
+                + '\''
+                + ", coordinates="
+                + coordinates
+                + ", creationDate="
+                + creationDate
+                + ", oscarsCount="
+                + oscarsCount
+                + ", genre="
+                + genre
+                + ", mpaaRating="
+                + mpaaRating
+                + ", operator="
+                + operator
+                + '}';
+    }
+
+    @Override
+    public int compareTo(Movie arg0) {
+        return oscarsCount.compareTo(arg0.oscarsCount);
     }
 }

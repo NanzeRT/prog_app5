@@ -8,6 +8,7 @@ import org.itmo.prog.movies.core.data.MpaaRating;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.annotation.Nullable;
 
@@ -32,10 +33,10 @@ public class InteractiveMovieReader implements MovieReader {
         creator.setCoordinates(createCoordinates());
         writer.write("Exiting coordinates\n");
         utils.setNonNull("Enter oscars count (int): ", Integer::parseInt, creator::setOscarsCount);
-        utils.setNonNull("Possible genres: " + MovieGenre.values() + "\nEnter genre (MovieGenre): ", MovieGenre::valueOf, creator::setGenre);
-        utils.setNullable("Possible ratings: " + MpaaRating.values() + "\nEnter rating (MpaaRating or empty): ", MpaaRating::valueOf, creator::setMpaaRating);
+        utils.setNonNull("Possible genres: " + Arrays.asList(MovieGenre.values()) + "\nEnter genre (MovieGenre): ", MovieGenre::valueOf, creator::setGenre);
+        utils.setNullable("Possible ratings: " + Arrays.asList(MpaaRating.values()) + "\nEnter rating (MpaaRating or empty): ", MpaaRating::valueOf, creator::setMpaaRating);
         writer.write("Entering operator:\n");
-        creator.setOperator(personReader.create());
+        creator.setOperator(personReader.getOrInsert());
         writer.write("Exiting operator\n");
         return creator;
     }

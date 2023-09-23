@@ -16,7 +16,7 @@ class NonInteractiveUtils {
         if (line == null) {
             throw new IOException("Unexpected end of input");
         }
-        if (line == "") {
+        if (line.isEmpty()) {
             return null;
         }
         try {

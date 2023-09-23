@@ -7,19 +7,20 @@ import javax.annotation.Nullable;
 import org.itmo.prog.movies.core.data.Person;
 
 public interface PersonCollectionView {
-    @Nullable Person get(String id);
-    List<Person> getAll();
+    public @Nullable Person get(String id);
+    public List<Person> getAll();
     /**
-     * @return null if person with such id already exists
-     */
-    @Nullable Person add(Person.Creator creator);
+    * @return null if person with such id already exists
+    */
+    public @Nullable Person add(Person.Creator creator);
     /**
-     * @return null if person with such id already exists
-     */
-    @Nullable Person add(Person person);
-    void remove(String id);
-    @Nullable Person update(Person.Creator creator);
-    @Nullable Person update(Person person);
-    void clear();
-    boolean contains(String id);
+    * @return null if person with such id already exists
+    */
+    public @Nullable Person add(Person person);
+    public void remove(String id);
+    public @Nullable Person update(Person.Creator creator);
+    public @Nullable Person update(Person person);
+    public void clear();
+    public boolean contains(String id);
+    public int size();
 }
